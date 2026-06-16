@@ -62,6 +62,7 @@ export async function writeSkillFolder(options: GenerateOptions): Promise<WriteR
   const root = path.join(parentDir, name);
   const files = createSkillFiles(options);
 
+  await mkdir(parentDir, { recursive: true });
   await mkdir(root, { recursive: options.force === true });
   await mkdir(path.join(root, "examples"), { recursive: true });
 

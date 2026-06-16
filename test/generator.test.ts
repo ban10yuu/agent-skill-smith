@@ -35,3 +35,16 @@ test("writeSkillFolder writes a complete skill folder", async () => {
     await rm(root, { recursive: true, force: true });
   }
 });
+
+test("writeSkillFolder creates a missing parent directory", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "agent-skill-smith-"));
+  try {
+    const missingParent = path.join(root, "nested", "skills");
+    const result = await writeSkillFolder({ name: "api-reviewer", dir: missingParent });
+    const skill = await readFile(path.join(result.root, "SKILL.md"), "utf8");
+
+    assert.match(skill, /# API Reviewer/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
