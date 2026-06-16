@@ -37,6 +37,7 @@ Before the npm package is published, run it from GitHub:
 
 ```bash
 npx github:ban10yuu/agent-skill-smith --help
+npm exec --yes --package github:ban10yuu/agent-skill-smith#main -- agent-skill-smith --help
 ```
 
 Or install globally:
@@ -168,6 +169,10 @@ node dist/src/cli.js check /tmp/agent-skill-smith-demo/seo-auditor
 - `doctor` command for stronger wording suggestions.
 - Presets for common skills: code review, SEO audit, design review, launch checklist.
 - Compatibility notes for more agent surfaces.
+
+## Status
+
+Alpha. The CLI is usable today, but the generated skill template will keep tightening as agent skill conventions settle.
 
 ## License
 
