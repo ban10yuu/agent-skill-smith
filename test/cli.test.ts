@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdtemp, rm, symlink } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
@@ -14,6 +14,19 @@ test("print writes a complete SKILL.md to stdout", async () => {
 
   assert.match(stdout, /name: seo-auditor/);
   assert.match(stdout, /## Workflow/);
+});
+
+test("cli runs through a package-manager style symlink", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "agent-skill-smith-bin-"));
+  try {
+    const binPath = path.join(root, "agent-skill-smith");
+    await symlink(cliPath, binPath);
+    const { stdout } = await execFileAsync("node", [binPath, "--help"]);
+
+    assert.match(stdout, /Generate and validate portable AI-agent skill folders/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
 });
 
 test("init and check work together", async () => {
