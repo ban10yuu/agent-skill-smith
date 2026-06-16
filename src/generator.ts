@@ -169,10 +169,27 @@ agent-skill-smith check ${name}
 }
 
 function toTitle(slug: string): string {
+  const acronyms: Record<string, string> = {
+    ai: "AI",
+    api: "API",
+    cli: "CLI",
+    css: "CSS",
+    html: "HTML",
+    json: "JSON",
+    llm: "LLM",
+    mcp: "MCP",
+    pdf: "PDF",
+    seo: "SEO",
+    sql: "SQL",
+    ui: "UI",
+    ux: "UX",
+    yaml: "YAML",
+  };
+
   return slug
     .split("-")
     .filter(Boolean)
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .map((part) => acronyms[part] ?? part.charAt(0).toUpperCase() + part.slice(1))
     .join(" ");
 }
 

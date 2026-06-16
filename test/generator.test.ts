@@ -29,7 +29,7 @@ test("writeSkillFolder writes a complete skill folder", async () => {
     const example = await readFile(path.join(result.root, "examples", "usage.md"), "utf8");
 
     assert.equal(result.files.length, 3);
-    assert.match(skill, /# Seo Auditor/);
+    assert.match(skill, /# SEO Auditor/);
     assert.match(example, /Expected Agent Behavior/);
   } finally {
     await rm(root, { recursive: true, force: true });
